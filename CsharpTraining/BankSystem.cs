@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CsharpTraining
+﻿namespace CsharpTraining
 {
-    internal class Program
+    internal class BankSystem
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Bank Account Management System!");
 
+            Console.WriteLine("");
 
             Console.WriteLine("--- Account Profile ---");
+
+            Console.WriteLine("");
 
             Console.Write("Enter your account number:");
             int accountNumber = Convert.ToInt32(Console.ReadLine());
@@ -21,29 +22,34 @@ namespace CsharpTraining
             double balance = Convert.ToDouble(Console.ReadLine());
 
             Console.Write("Enter 1=active / 0=inactive: ");
-            bool isActive = Convert.ToBoolean(Console.ReadLine());
+            bool isActive = Convert.ToBoolean(Convert.ToInt16(Console.ReadLine()));
 
             Console.Write("Enter Account Type ( S / C / F): ");
-            char accounttype = Convert.ToChar(Console.ReadLine());
-            string accountTypeFull;
-
-            if (accounttype == 'S')
+            string accounttype = Console.ReadLine().ToUpper();
+           
+            string accountTypeFull = "";
+            
+            if (accounttype == "S")
             {
                 accountTypeFull = "Savings";
             }
-            else if (accounttype == 'C')
+            else if (accounttype == "C")
             {
                 accountTypeFull = "Current";
             }
-            else
+            else if (accounttype == "F")
             {
                 accountTypeFull = "Fixed Deposit";
             }
 
+            Console.WriteLine("");
+
             Console.WriteLine("--- Customer Profile ---");
 
+            Console.WriteLine("");
+
             Console.Write("Enter 1=Employed / 0=Not Employed: ");
-            bool isEmployed = Convert.ToBoolean(Console.ReadLine());
+            bool isEmployed = Convert.ToBoolean(Convert.ToInt16(Console.ReadLine()));
 
             Console.Write("Enter Your Month Salary: ");
             double salary = Convert.ToDouble(Console.ReadLine());
@@ -54,8 +60,11 @@ namespace CsharpTraining
             Console.Write("Enter Your Age: ");
             int age = Convert.ToInt32(Console.ReadLine());
 
+            Console.WriteLine("");
 
             Console.WriteLine("--- Transaction Data ---");
+
+            Console.WriteLine("");
 
             Console.Write("Enter Last Deposit Amount: ");
             double deposit = Convert.ToDouble(Console.ReadLine());
@@ -71,9 +80,22 @@ namespace CsharpTraining
 
             Console.WriteLine("Setup Complete. Launching Main Menu...");
 
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
 
+            Console.WriteLine("=== NATIONAL BANK OF OMAN ===");
 
-            Console.WriteLine("=== MAIN MENU ===");
+            Console.WriteLine("");
+
+            Console.WriteLine("Customer : " + holderName);
+
+            Console.WriteLine("");
+
+            Console.WriteLine("Balance : " + balance);
+
+            Console.WriteLine("");
 
             Console.WriteLine("1) ATM Services ");
             Console.WriteLine("2) Account Management ");
@@ -84,6 +106,8 @@ namespace CsharpTraining
             Console.WriteLine("7) Reports & Admin ");
             Console.WriteLine("8) [BONUS] Full Terminal ");
             Console.WriteLine("0) Exit ");
+
+            Console.WriteLine("");
 
             Console.Write("Select: ");
 
@@ -99,6 +123,9 @@ namespace CsharpTraining
                     return;
 
                 case "1":
+                    Console.WriteLine("=== ATM SERVICES ===");
+
+                    Console.WriteLine("");
 
                     Console.WriteLine("1) Bank Info");
                     Console.WriteLine("2) View Account Data");
@@ -114,11 +141,11 @@ namespace CsharpTraining
                     {
                         case "0":
                             Console.WriteLine("Returning To Main Menu...");
-                            break;
+                            return;
 
                         case "1":
-                            
-                            Console.WriteLine("=== ATM SERVICES ===");
+
+                            Console.WriteLine("=== BANK INFO ===");
 
                             Console.WriteLine("1) Bank Info");
                             Console.WriteLine("2) Branch Info");
@@ -327,6 +354,9 @@ namespace CsharpTraining
                     break;
 
                 case "2":
+                    Console.WriteLine("=== ACCOUNT MANAGEMENT ===");
+
+                    Console.WriteLine("");
 
                     Console.WriteLine("1) Transaction Calculator");
                     Console.WriteLine("2) Account Types");
@@ -347,7 +377,7 @@ namespace CsharpTraining
 
                             Console.WriteLine("=== TRANSACTION CALCULATOR ===");
 
-                            Console.WriteLine("Using: balance=" + balance + "   deposit=" + deposit + "rate="+ annualRate +"%");
+                            Console.WriteLine("Using: balance=" + balance + "   deposit=" + deposit + "rate=" + annualRate + "%");
 
                             Console.WriteLine("1) Balance After Deposit");
                             Console.WriteLine("2) Balance After Withdrawal");
@@ -428,7 +458,7 @@ namespace CsharpTraining
                                         Console.WriteLine("Any Branch");
                                     }
 
-                                    if (accounttype == 'S')
+                                    if (accounttype == "S")
                                     {
                                         Console.WriteLine("*** This is your account type *** ");
                                     }
@@ -436,7 +466,7 @@ namespace CsharpTraining
                                     {
                                         Console.WriteLine("Account Type Not Offered");
                                     }
-                                        break;
+                                    break;
 
                                 // Current Account
                                 case "2":
@@ -453,7 +483,7 @@ namespace CsharpTraining
                                         Console.WriteLine("Any Branch");
                                     }
 
-                                    if (accounttype == 'C')
+                                    if (accounttype == "C")
                                     {
                                         Console.WriteLine("*** This is your account type *** ");
                                     }
@@ -478,7 +508,7 @@ namespace CsharpTraining
                                         Console.WriteLine("Any Branch");
                                     }
 
-                                    if (accounttype == 'F')
+                                    if (accounttype == "F")
                                     {
                                         Console.WriteLine("*** This is your account type *** ");
                                     }
@@ -502,7 +532,7 @@ namespace CsharpTraining
                                         Console.WriteLine("Any Branch");
                                     }
 
-                                    if (accounttype == 'J')
+                                    if (accounttype == "J")
                                     {
                                         Console.WriteLine("*** This is your account type *** ");
                                     }
@@ -523,7 +553,7 @@ namespace CsharpTraining
 
                             Console.WriteLine("=== LOAN ELIGIBILITY ===");
 
-                            Console.WriteLine("Holder : " + holderName + "  |   Salary: " + salary + "OMR   |   Score: " + creditScore +"   |   Age:    " + age);
+                            Console.WriteLine("Holder : " + holderName + "  |   Salary: " + salary + "OMR   |   Score: " + creditScore + "   |   Age:    " + age);
 
                             Console.WriteLine("1) Personal Loan");
                             Console.WriteLine("2) Car Loan");
@@ -592,7 +622,304 @@ namespace CsharpTraining
                     break;
 
                 case "3":
-                    Console.WriteLine("Launching Loan Services...");
+                    Console.WriteLine("=== LOAN SERVICES ===");
+
+                    Console.WriteLine("");
+
+                    Console.WriteLine("1) ATM Transaction");
+                    Console.WriteLine("2) Fee Schedule");
+                    Console.WriteLine("3) Repayment Calculator");
+                    Console.WriteLine("0) Back To Main Menu");
+
+                    Console.Write("Select: ");
+
+                    sub_menu = Console.ReadLine();
+
+                    switch (sub_menu)
+                    {
+                        case "0":
+                            Console.WriteLine("Returning To Main Menu...");
+                            break;
+
+                        case "1":
+
+                            Console.WriteLine("=== ATM TRANSACTION ===");
+
+                            Console.WriteLine("Holder: " + holderName + "   |   Balance: " + balance + " OMR");
+
+                            Console.WriteLine("1) Check Balance");
+                            Console.WriteLine("2) Withdrawal");
+                            Console.WriteLine("3) Deposit");
+                            Console.WriteLine("0) Back To Main Menu");
+
+                            Console.Write("Select: ");
+
+                            sub_sub_menu = Console.ReadLine();
+
+                            switch (sub_sub_menu)
+                            {
+                                // Return To Main Menu
+                                case "0":
+                                    Console.WriteLine("Returning To Main Menu...");
+                                    break;
+
+                                // Check Balance
+                                case "1":
+                                    Console.WriteLine("Balance  :   " + balance);
+                                    break;
+
+                                // Withdrawal
+                                case "2":
+                                    Console.Write("Enter Amount: ");
+                                    double withdrawalAmount = Convert.ToDouble(Console.ReadLine());
+
+                                    if (withdrawalAmount > balance)
+                                    {
+                                        Console.WriteLine("Insufficient Funds.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Account Number: ****" + (accountNumber % 10000));
+                                        Console.WriteLine("Holder Name: " + holderName);
+                                        Console.WriteLine("Deposit Amount: " + withdrawalAmount);
+                                        Console.WriteLine("Previous Balance: " + balance);
+
+                                        balance = balance - withdrawalAmount;
+
+                                        if (balance > 0)
+                                        {
+                                            Console.WriteLine("New Balance: " + balance);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("No Funds");
+                                        }
+                                    }
+                                    break;
+
+                                // Deposit
+                                case "3":
+                                    Console.Write("Enter Deposit Amount: ");
+                                    double depositAmount = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.WriteLine("Account Number: ****" + (accountNumber % 10000));
+                                    Console.WriteLine("Holder Name: " + holderName);
+                                    Console.WriteLine("Deposit Amount: " + depositAmount);
+                                    Console.WriteLine("Previous Balance: " + balance);
+
+                                    balance = balance + depositAmount;
+                                    Console.WriteLine("New Balance: " + balance);
+                                    break;
+
+                                // Invalid Option
+                                default:
+                                    Console.WriteLine("Invalid Option. Please Try Again.");
+                                    break;
+                            }
+                            break;
+
+                        case "2":
+                            Console.WriteLine("=== TRANSACTION FEE SCHEDULE ===");
+
+                            Console.WriteLine("Your Account type: " + accounttype + " (" + accountTypeFull + ")");
+
+                            Console.WriteLine("1) Wire Transfer");
+                            Console.WriteLine("2) ATM Withdrawal");
+                            Console.WriteLine("3) POS Payment");
+                            Console.WriteLine("4) Online Transfer");
+                            Console.WriteLine("0) Back");
+
+                            Console.Write("Select: ");
+
+                            sub_sub_menu = Console.ReadLine();
+
+                            const double VAT_RATE = 0.05;
+                            const double WIRE = 5.00;
+                            const double ATM_FEE = 0.50;
+                            const double POS = 0.000;
+                            const double ONLINE = 0.25;
+
+                            switch (sub_sub_menu)
+                            {
+                                // Return To Loan Services
+                                case "0":
+                                    Console.WriteLine("Returning To Main Menu...");
+                                    break;
+
+                                // Wire Transfer
+                                case "1":
+                                    Console.WriteLine("Base Fee : " + WIRE);
+                                    Console.WriteLine("VAT (5%) : " + (WIRE * VAT_RATE));
+                                    Console.WriteLine("Total    : " + (WIRE + (WIRE * VAT_RATE)));
+                                    break;
+
+                                // ATM Withdrawal
+                                case "2":
+                                    Console.WriteLine("Base Fee : " + ATM_FEE);
+                                    Console.WriteLine("VAT (5%) : " + (ATM_FEE * VAT_RATE));
+                                    Console.WriteLine("Total    : " + (ATM_FEE + (ATM_FEE * VAT_RATE)));
+                                    break;
+
+                                // POS Payment
+                                case "3":
+                                    Console.WriteLine("Base Fee : " + POS);
+                                    Console.WriteLine("VAT (5%) : " + (POS * VAT_RATE));
+                                    Console.WriteLine("Total    : " + (POS + (POS * VAT_RATE)));
+                                    break;
+                                // Online Transfer
+                                case "4":
+                                    Console.WriteLine("Base Fee : " + ONLINE);
+                                    Console.WriteLine("VAT (5%) : " + (ONLINE * VAT_RATE));
+                                    Console.WriteLine("Total    : " + (ONLINE + (ONLINE * VAT_RATE)));
+                                    break;
+
+                                // Invalid Option
+                                default:
+                                    Console.WriteLine("Invalid Option. Please Try Again.");
+                                    break;
+                            }
+                            break;
+
+                        case "3":
+
+                            Console.WriteLine("=== LOAN REPAYMENT CALCULATOR ===");
+
+                            Console.WriteLine("Account Balance (Ref): " + balance + " OMR");
+
+                            Console.WriteLine("1) Personal Loan");
+                            Console.WriteLine("2) Car Loan");
+                            Console.WriteLine("3) Home Loan");
+                            Console.WriteLine("0) Back");
+
+                            Console.Write("Select: ");
+
+                            sub_sub_menu = Console.ReadLine();
+
+                            double p;
+                            double annualrate;
+                            double n;
+                            double r;
+                            double m;
+
+                            switch (sub_sub_menu)
+                            {
+                                // Return To Loan Services
+                                case "0":
+                                    Console.WriteLine("Returning To Main Menu...");
+                                    break;
+
+                                // Personal Loan
+                                case "1":
+
+                                    Console.Write("Enter Loan Amount: ");
+                                    p = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.Write("Enter Annual Rate: ");
+                                    annualrate = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.WriteLine("Enter Monthly Payment: ");
+                                    n = Convert.ToDouble(Console.ReadLine());
+
+                                    r = annualrate / 12 / 100;
+                                    m = p * r / (1 - Math.Pow(1 + r, -n));
+
+                                    Console.WriteLine("Monthly Payment: " + m + " OMR");
+                                    Console.WriteLine("Total Repayble : " + (n * m));
+                                    Console.WriteLine("Total Interest : " + ((n * m) - p));
+
+                                    if (n * m > 10000)
+                                    {
+                                        Console.WriteLine("Requires salary certificate.");
+                                    }
+                                    else if (n * m > 30000)
+                                    {
+                                        Console.WriteLine("Requires vehicle valuation.");
+                                    }
+                                    else if (n * m > 100000)
+                                    {
+                                        Console.WriteLine("Requires manager approval.");
+                                    }
+
+                                    break;
+
+                                // Car Loan
+                                case "2":
+
+                                    Console.Write("Enter Loan Amount: ");
+                                    p = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.Write("Enter Annual Rate: ");
+                                    annualrate = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.WriteLine("Enter Monthly Payment: ");
+                                    n = Convert.ToDouble(Console.ReadLine());
+
+                                    r = annualrate / 12 / 100;
+                                    m = p * r / (1 - Math.Pow(1 + r, -n));
+
+                                    Console.WriteLine("Monthly Payment: " + m + " OMR");
+                                    Console.WriteLine("Total Repayble : " + (n * m));
+                                    Console.WriteLine("Total Interest : " + ((n * m) - p));
+
+                                    if (n * m > 10000)
+                                    {
+                                        Console.WriteLine("Requires salary certificate.");
+                                    }
+                                    else if (n * m > 30000)
+                                    {
+                                        Console.WriteLine("Requires vehicle valuation.");
+                                    }
+                                    else if (n * m > 100000)
+                                    {
+                                        Console.WriteLine("Requires manager approval.");
+                                    }
+                                    break;
+
+                                // Home Loan
+                                case "3":
+
+                                    Console.Write("Enter Loan Amount: ");
+                                    p = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.Write("Enter Annual Rate: ");
+                                    annualrate = Convert.ToDouble(Console.ReadLine());
+
+                                    Console.WriteLine("Enter Monthly Payment: ");
+                                    n = Convert.ToDouble(Console.ReadLine());
+
+                                    r = annualrate / 12 / 100;
+                                    m = p * r / (1 - Math.Pow(1 + r, -n));
+
+                                    Console.WriteLine("Monthly Payment: " + m + " OMR");
+                                    Console.WriteLine("Total Repayble : " + (n * m));
+                                    Console.WriteLine("Total Interest : " + ((n * m) - p));
+
+                                    if (n * m > 10000)
+                                    {
+                                        Console.WriteLine("Requires salary certificate.");
+                                    }
+                                    else if (n * m > 30000)
+                                    {
+                                        Console.WriteLine("Requires vehicle valuation.");
+                                    }
+                                    else if (n * m > 100000)
+                                    {
+                                        Console.WriteLine("Requires manager approval.");
+                                    }
+                                    break;
+
+                                // Invalid Option
+                                default:
+                                    Console.WriteLine("Loan product not offered.");
+                                    break;
+                            }
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid Option. Please Try Again.");
+                            break;
+
+                    }
                     break;
 
                 case "4":
@@ -619,10 +946,6 @@ namespace CsharpTraining
                     Console.WriteLine("Invalid Option. Please Try Again.");
                     return;
             }
-
-            
-
-
         }
     }
 }
