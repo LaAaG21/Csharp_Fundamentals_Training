@@ -71,6 +71,97 @@
             
         }
 
+        public static void problem4()
+        {
+            int[] finishTimes = { 10, 20, 60, 30, 40, 70, 50, 80 };
+
+            foreach (int finishTime in finishTimes)
+            {
+                Console.WriteLine(finishTime);
+            }
+
+            Array.Sort(finishTimes);
+
+            foreach (int finishTime in finishTimes)
+            {
+                Console.WriteLine(finishTime);
+            }
+
+            Console.WriteLine(finishTimes.Length);
+        }
+
+        public static void problem5()
+        {
+            int[] grades = { 10, 20, 40, 60, 80, 100, 30, 50, 70, 90};
+
+            Array.Sort(grades);
+            Array.Reverse(grades);
+
+            for (int i = 0;i < grades.Length;i++)
+            {
+                Console.WriteLine($"Rank {i++}" + grades[i]);
+            }
+        }
+
+        public static void problem6()
+        {
+            int[] quantities = { 1, 3, 5, 7, 2, 4, 6, 8};
+            int total = 0;
+
+            for (int i = 0; i < quantities.Length;i++)
+            {
+                total += quantities[i];
+            }
+
+            Console.WriteLine(total / quantities.Length);
+
+            if (Array.IndexOf(quantities, 4) == -1)
+            {
+                Console.WriteLine("Not Found");
+            }
+            else
+            {
+                Console.WriteLine("Found at " + Array.IndexOf(quantities, 4));
+            }
+        }
+
+        public static void problem7()
+        {
+            int[] copies = {1, 3, 5, 7, 9, 2, 4, 6, 8};
+
+            foreach(int copy in copies)
+            {
+                Console.WriteLine($"{copy}");
+            }
+
+            Array.Sort(copies);
+
+            Console.WriteLine(copies[8]);
+
+            foreach (int copy in copies)
+            {
+                if (copy == 0)
+                {
+                    Console.WriteLine("Out of Stock");
+                }
+            }
+        }
+
+        public static void problem8()
+        {
+
+        }
+
+        public static void problem9()
+        {
+
+        }
+
+        public static void problem10()
+        {
+
+        }
+
         static void Main(string[] args)
         {
             bool lop = true;
@@ -96,24 +187,31 @@
                         break;
 
                     case 4:
+                        problem4();
                         break;
 
                     case 5:
+                        problem5();
                         break;
 
                     case 6:
+                        problem6();
                         break;
 
                     case 7:
+                        problem7();
                         break;
 
                     case 8:
+                        problem8();
                         break;
 
                     case 9:
+                        problem9();
                         break;
 
                     case 10:
+                        problem10();
                         break;
                 }
             } while (lop == true);
