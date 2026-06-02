@@ -19,7 +19,11 @@
 
             Console.WriteLine();
             Console.Write("Select an Option: ");
-            return int.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+            Console.WriteLine("==============================================");
+            Console.WriteLine();
+            return int.Parse(Console.ReadLine());            
         }
 
         public static void problem1()
@@ -149,7 +153,30 @@
 
         public static void problem8()
         {
+            double[] revenue = { 90.1, 70.2, 30.3, 40.44, 20.55, 10.23, 50.43, 120.12, 220.32, 400.23, 650.14, 100.0};
+            double[] sortedCopy = new double [revenue.Length];
 
+            for (int i = 0; i < revenue.Length; i++)
+            {
+                Console.WriteLine($"Month {i + 1}: " + revenue[i]);
+            }
+
+            for (int i = 0; i < revenue.Length; i++)
+            {
+                sortedCopy[i] = revenue[i];
+            }
+
+            Array.Sort(sortedCopy);
+
+            for (int i = 0;i < sortedCopy.Length; i++)
+            {
+                Console.WriteLine($"Sorted Copy {i + 1}: " + sortedCopy[i]);
+            }
+
+            Console.WriteLine("Best  Revenue Month: " + sortedCopy[11]);
+            Console.WriteLine("Worst Revenue Month: " + sortedCopy[0]);
+
+            Console.WriteLine("The Average: " + sortedCopy.Sum() / sortedCopy.Length);
         }
 
         public static void problem9()
@@ -214,6 +241,10 @@
                         problem10();
                         break;
                 }
+
+                Console.WriteLine("Press Any Key To Continue...");
+                Console.ReadKey();
+                Console.Clear();
             } while (lop == true);
         }
     }

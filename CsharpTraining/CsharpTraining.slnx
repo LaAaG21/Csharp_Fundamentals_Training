@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="../ArrayPractice/ArrayPractice.csproj" Id="e4bd6bff-10ce-48ed-9933-e409824f7e03" />
   <Project Path="../Library Management System/Library Management System.csproj" Id="b3a1741d-95d5-44bb-857c-b801bea126dd" />
+  <Project Path="../ListPractice/ListPractice.csproj" Id="fe35e915-f6ca-4ca4-b90c-5f74871f68c7" />
   <Project Path="../loanSystem/loanSystem.csproj" Id="d6bdaf34-2686-42ad-bb9c-8faca52ac361" />
   <Project Path="../SystemStorage/SystemStorage.csproj" Id="05d1ba4b-e595-4ea9-8c3f-d75b9c6033e8" />
   <Project Path="CsharpTraining.csproj" />
