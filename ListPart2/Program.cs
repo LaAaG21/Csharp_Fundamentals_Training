@@ -111,11 +111,69 @@
 
         public static void proble3()
         {
+            List<int> assignedRooms = [203, 201, 207, 204, 200, 209];
+
+            for (int i = 0; i < assignedRooms.Count; i++)
+            {
+                Console.WriteLine($"Room No: {assignedRooms[i]}");
+            }
+
+            Console.WriteLine();
+
+            assignedRooms.Add(208);
+            assignedRooms.Add(205);
+
+            assignedRooms.Remove(201);
+
+            assignedRooms.Sort();
+
+            for (int i = 0; i < assignedRooms.Count; i++)
+            {
+                Console.WriteLine($"Room No: {assignedRooms[i]}");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("In Index No 4, The Room No Is: " + assignedRooms.IndexOf(4));
+
+            assignedRooms.Insert(2, 210);
+
+            for (int i = 0; i < assignedRooms.Count; i++)
+            {
+                Console.WriteLine($"Room No: {assignedRooms[i]}");
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine("Total Rooms: " + assignedRooms.Count);
 
         }
 
         public static void proble4()
         {
+            List<int> standardBookings = [1001, 1003, 1005, 1002, 1004, 1006];
+            List<int> suiteBookings  = [1002, 2004, 1006, 2001, 1003];
+            List<int> masterBookings  = new List<int>();
+
+            for (int i = 0;i < standardBookings.Count;i++)
+            {
+                Console.WriteLine();
+                Console.WriteLine("=== Standerd Bookings ===");
+                Console.WriteLine();
+
+                Console.WriteLine($"Standerd Booking ID {i+1}: {standardBookings[i]}");
+            }
+
+            for (int i = 0; i < suiteBookings.Count; i++)
+            {
+                Console.WriteLine();
+                Console.WriteLine("=== Suite Bookings ===");
+                Console.WriteLine();
+
+                Console.WriteLine($"Suite Booking ID {i + 1}: {suiteBookings[i]}");
+            }
+
+            masterBookings = standardBookings.Concat(suiteBookings).ToList();
+
 
         }
 
