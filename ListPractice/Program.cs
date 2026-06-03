@@ -24,6 +24,7 @@
             List<double> temp = [30.1, 32.2, 18.0, 12.4, 21.1, 20.1, 40.9];
 
             for (int i = 0; i < temp.LongCount(); i++)
+         
             {
                 Console.WriteLine($"Day {i + 1}: " + temp[i]);
             }
