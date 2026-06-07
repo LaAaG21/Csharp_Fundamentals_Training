@@ -22,6 +22,11 @@
         static Dictionary<string, string> bookingRecord = new Dictionary<string, string>();
         static Dictionary<string,string> passengerSeatMap = new Dictionary<string,string>();
 
+        // Temp Variables
+        static string name = "";
+        static int ticketcounter = 1;
+        static string ticketID = "";
+
 
         public static string menu()
         {
@@ -60,7 +65,30 @@
             return Console.ReadLine();
         }
 
+        public static void Register()
+        {
+            Console.WriteLine();
+            Console.Write("Enter Your Full Name: ");
+            name = Console.ReadLine().ToLower();
 
+            if (name.IsWhiteSpace() == true || passengerNames.Contains(name) == true)
+            {
+                Console.WriteLine("Invalid Name Format..");
+            }
+            else
+            {
+                passengerNames.Add(name);
+                ticketID = "TKT-" + ticketcounter.ToString("D3");
+                ticketcounter++;
+                ticketNumbers.Add(ticketID);
+                Console.WriteLine("The name Was Added Successfully");
+
+                Console.WriteLine();
+
+                Console.WriteLine("Passenger Name:  " + name);
+                Console.WriteLine("Ticket ID     :  " + ticketID);
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -75,56 +103,70 @@
 
                     case "0":
                         Console.ResetColor();
+                        Console.WriteLine();
                         Console.WriteLine("GoodBey..");
                         lop = false;
                         break;
 
                     case "1":
+                        Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        Register();
                         break;
 
                     case "2":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "3":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "4":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "5":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "6":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "7":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "8":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "9":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
 
                     case "10":
+                        Console.WriteLine();
                         Console.ResetColor();
                         Console.WriteLine("Under Devalopment...");
                         break;
@@ -135,7 +177,7 @@
                         break;
 
                 }
-                Console.WriteLine("");
+                Console.WriteLine();
                 Console.WriteLine("Press Any Key To Continue...");
                 Console.ReadKey();
                 Console.Clear();
