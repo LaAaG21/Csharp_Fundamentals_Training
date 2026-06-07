@@ -26,6 +26,7 @@
         static string name = "";
         static int ticketcounter = 1;
         static string ticketID = "";
+        static string option = "";
 
 
         public static string menu()
@@ -116,6 +117,51 @@
 
                 Console.WriteLine();
                 Console.WriteLine("Total Passengers: " + passengerNames.Count);
+            }
+        }
+
+        public static void bookflight()
+        {
+            Console.Write("Enter Your Ticket ID: ");
+            ticketID = Console.ReadLine();
+
+            Console.WriteLine();
+
+            if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true)
+            {
+                Console.Write("Invalid Ticket ID..");
+            }
+
+            else if(bookingRecord.ContainsKey(ticketID) == true)
+            {
+                Console.Write("The Ticket ID Is Already Has a Booking..");
+            }
+
+            else
+            {
+                for(int i = 0; i < flightNumbers.Count(); i++)
+                {
+                    Console.WriteLine($"Flight No {i+1}: {flightNumbers[i]}");
+                }
+
+                Console.WriteLine();
+
+                Console.Write("Select Which Flight No You Want: ");
+                option = Console.ReadLine();
+
+                Console.WriteLine();
+
+                if (int.Parse(option) <= flightNumbers.Count() && int.Parse(option) > 0)
+                {
+                    for(int i = 0;i < availableDates.Count();i++)
+                    {
+                        Console.WriteLine("");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                }
             }
         }
         static void Main(string[] args)
