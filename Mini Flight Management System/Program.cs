@@ -51,11 +51,71 @@
             return Console.ReadLine();
         }
 
+
+
         static void Main(string[] args)
         {
-            
 
+            bool lop = true;
 
+            do
+            {
+
+                switch(menu())
+                {
+
+                    case "0":
+                        Console.WriteLine("GoodBey..");
+                        lop = false;
+                        break;
+
+                    case "1":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "2":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "3":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "4":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "5":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "6":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "7":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "8":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "9":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                    case "10":
+                        Console.WriteLine("Under Devalopment...");
+                        break;
+
+                }
+                Console.WriteLine("");
+                Console.WriteLine("Press Any Key To Continue...");
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (lop == true);
         }
     }
 }
