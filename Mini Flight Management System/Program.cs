@@ -78,9 +78,11 @@
             else
             {
                 passengerNames.Add(name);
+
                 ticketID = "TKT-" + ticketcounter.ToString("D3");
                 ticketcounter++;
                 ticketNumbers.Add(ticketID);
+
                 Console.WriteLine("The name Was Added Successfully");
 
                 Console.WriteLine();
@@ -90,6 +92,32 @@
             }
         }
 
+        public static void View_all_Passengers()
+        {
+            if(passengerNames.Count == 0)
+            {
+                Console.WriteLine("No Passengers Registered Yet..");
+            }
+            else
+            {
+                Console.WriteLine("No.   |   PassName         |   TicketID   |   Status  |");                                
+
+                for (int i = 0; i < passengerNames.Count; i++)
+                {
+                    if (cancelledTickets.Contains(ticketNumbers[i]) == true)
+                    {
+                        Console.WriteLine($"{i + 1}       |   {passengerNames[i]}            |   {ticketNumbers[i]}    |   CANCELLED  |");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{i + 1}     |   {passengerNames[i]}            |   {ticketNumbers[i]}    |   ACTIVE  |");
+                    }                
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Total Passengers: " + passengerNames.Count);
+            }
+        }
         static void Main(string[] args)
         {
 
@@ -120,7 +148,10 @@
                     case "2":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        View_all_Passengers();
                         break;
 
                     case "3":
