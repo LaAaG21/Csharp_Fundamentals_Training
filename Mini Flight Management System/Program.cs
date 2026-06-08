@@ -24,7 +24,7 @@
 
         // Temp Variables
         static string name = "";
-        static int ticketcounter = 1;
+        static int ticketcounter = 5;
         static string ticketID = "";
         static int flightoption = 0;
         static int bookoption = 0;
@@ -77,6 +77,8 @@
 
         public static void updatemenu()
         {
+            updatelop = true;
+
             do
             {
 
@@ -421,18 +423,15 @@
 
             Console.WriteLine();
 
-            if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true)
-            {
-                Console.Write("Invalid Ticket ID or It is Already Cancelled..");
-            }
-            else
-            {
-                name = passengerNames[flightNumbers.IndexOf(ticketID)];
+            if (ticketNumbers.Contains(ticketID) == true && cancelledTickets.Contains(ticketID) == false)
+            {             
+
+                name = passengerNames[ticketNumbers.IndexOf(ticketID)];
                 Console.WriteLine($"Welcome: {name.ToUpper()}");
 
                 Console.WriteLine();
 
-                if(bookingRecord.ContainsKey(ticketID) == true)
+                if (bookingRecord.ContainsKey(ticketID) == true)
                 {
                     Console.WriteLine("The Ticket ID " + bookingRecord.Remove(ticketID) + " Was Removed From Booking Recored..");
                 }
@@ -441,23 +440,23 @@
 
                 if (checkedInQueue.Contains(name) == true)
                 {
-                    foreach(string item in checkedInQueue)
+                    foreach (string item in checkedInQueue)
                     {
-                        if(item != name)
+                        if (item != name)
                         {
                             tempcheck.Enqueue(item);
                         }
                     }
 
                     foreach (string item in tempcheck)
-                    {                        
-                        checkedInQueue.Enqueue(item);                        
+                    {
+                        checkedInQueue.Enqueue(item);
                     }
 
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Check-In..");
                 }
 
-                Console.WriteLine();
+                Console.WriteLine($"Your Ticket ID {ticketID} Has Been Set To Cancelled..");
 
                 if (boardingStack.Contains(name) == true)
                 {
@@ -475,7 +474,11 @@
                     }
 
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Boarding Stack..");
-                }              
+                }
+            }
+            else
+            {
+                Console.Write("Invalid Ticket ID or It is Already Cancelled..");
             }
         }
 
@@ -486,7 +489,7 @@
             ticketID = Console.ReadLine();
             Console.WriteLine();
 
-            name = passengerNames[flightNumbers.IndexOf(ticketID)];
+            name = passengerNames[ticketNumbers.IndexOf(ticketID)];
 
             updatelop = true;
 
@@ -567,6 +570,11 @@
                             Console.WriteLine("Check-In Queue Has Been Updated..");
                         }
 
+                        break;
+
+                    default:
+                        Console.ResetColor();
+                        Console.WriteLine("Invalid Option.. Please Select From 0 to 10");
                         break;
                 }
 
@@ -668,9 +676,9 @@
                         Console.WriteLine();
                         Console.ResetColor();
 
-                        //Console.WriteLine("Under Devalopment...");
+                        Console.WriteLine("Under Devalopment...");
 
-                        BoardPassengers();
+                        //BoardPassengers();
                         break;
 
                     case "9":
