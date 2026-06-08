@@ -3,9 +3,9 @@
     internal class Program
     {
         // List Variables
-        static List<string> passengerNames = [];
-        static List<string> ticketNumbers = [];
-        static List<string> availableDates = [];
+        static List<string> passengerNames = ["aiham"];
+        static List<string> ticketNumbers = ["TKT-001"];
+        static List<string> availableDates = ["12/2/2026", "20/2/2026", "12/5/2026", "12/6/2026", "12/8/2026"];
         static List<string> cancelledTickets = [];
 
         // Array Variables
@@ -28,6 +28,10 @@
         static string ticketID = "";
         static int flightoption = 0;
         static int bookoption = 0;
+        static bool updatelop = true;
+
+        static string oldflight = "";
+        static string oldbook = "";
 
 
         public static string menu()
@@ -65,6 +69,163 @@
             Console.Write("Enter Your Choice: ");
 
             return Console.ReadLine();
+        }
+
+        public static void updatemenu()
+        {
+            do
+            {
+
+                Console.WriteLine("1.   Change Flight Only");
+                Console.WriteLine("2.   Change Date Only");
+                Console.WriteLine("3.   Change Both");
+                Console.WriteLine("0.   Cancel Update");
+
+                switch (Console.ReadLine())
+                {
+                    case "0":
+                        updatelop = false;
+                        break;
+
+                    case "1":
+
+                        for (int i = 0; i < flightNumbers.Count(); i++)
+                        {
+                            Console.WriteLine($"Flight No {i + 1}: {flightNumbers[i]}");
+                        }
+
+                        Console.WriteLine();
+
+                        Console.Write("Select Which Flight No You Want: ");
+                        oldflight = flightNumbers[flightoption - 1];
+                        flightoption = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine();
+
+                        if (flightoption <= flightNumbers.Count() && flightoption > 0)
+                        {
+                            bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]}   |   {availableDates[bookoption - 1]}";
+
+                            Console.WriteLine("Successful Book The Flight..");
+                            Console.WriteLine();
+                            Console.WriteLine($"Ticket ID       : {ticketID}");
+                            Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                            Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
+                            Console.WriteLine($"Flight Date     : {availableDates[bookoption - 1]}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Option..Please Select avalible Flight.");
+                        }
+
+                        break;
+
+                    case "2":
+
+                        for (int i = 0; i < availableDates.Count(); i++)
+                        {
+                            Console.WriteLine($"Date No {i + 1}: {availableDates[i]}");
+                        }
+
+                        Console.WriteLine();
+
+                        Console.Write("Select Which Date No You Want: ");
+                        oldbook = availableDates[bookoption - 1];
+                        bookoption = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine();
+
+                        if (bookoption <= availableDates.Count() && bookoption > 0)
+                        {
+
+                            bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}";
+
+
+
+                            Console.WriteLine("Successful Book The Flight..");
+                            Console.WriteLine();
+                            Console.WriteLine($"Ticket ID       : {ticketID}");
+                            Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                            Console.WriteLine($"Flight Number   : {flightNumbers[flightoption - 1]}");
+                            Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                        }
+
+                        break;
+
+                    case "3":
+
+                        for (int i = 0; i < flightNumbers.Count(); i++)
+                        {
+                            Console.WriteLine($"Flight No {i + 1}: {flightNumbers[i]}");
+                        }
+
+                        Console.WriteLine();
+
+                        Console.Write("Select Which Flight No You Want: ");
+                        oldflight = flightNumbers[flightoption - 1];
+                        flightoption = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine();
+
+                        if (flightoption <= flightNumbers.Count() && flightoption > 0)
+                        {
+                            for (int i = 0; i < availableDates.Count(); i++)
+                            {
+                                Console.WriteLine($"Date No {i + 1}: {availableDates[i]}");
+                            }
+
+                            Console.WriteLine();
+
+                            Console.Write("Select Which Date No You Want: ");
+                            oldbook = availableDates[bookoption - 1];
+                            bookoption = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine();
+
+                            if (bookoption <= availableDates.Count() && bookoption > 0)
+                            {
+
+                                bookingRecord.Add($"{ticketID}", $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}");
+
+
+
+                                Console.WriteLine("Successful Book The Flight..");
+                                Console.WriteLine();
+                                Console.WriteLine($"Ticket ID       : {ticketID}");
+                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
+                                Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                            }
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                        }
+
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Option..");
+                        break;
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Any Key To Continue...");
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (updatelop == true);
         }
 
         public static void Register()
@@ -174,15 +335,16 @@
                         
                         
                         Console.WriteLine("Successful Book The Flight..");
+                        Console.WriteLine();
                         Console.WriteLine($"Ticket ID       : {ticketID}");
                         Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
-                        Console.WriteLine($"Flight Number   : {ticketID}");
-                        Console.WriteLine($"Flight Date     : {ticketID}");
+                        Console.WriteLine($"Flight Number   : {flightNumbers[flightoption - 1]}");
+                        Console.WriteLine($"Flight Date     : {availableDates[bookoption - 1]}");
 
                     }
                     else
                     {
-                        Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                        Console.WriteLine("Invalid Option.. Please Select avalible Date.");
                     }
 
                 }
@@ -193,9 +355,68 @@
             }
         }
 
+        public static void BookingDetails()
+        {
+            Console.WriteLine();
 
+            Console.Write("Enter Your Ticket ID:");
+            ticketID = Console.ReadLine();
 
+            Console.WriteLine();
 
+            if (ticketNumbers.Contains(ticketID) == false)
+            {
+                Console.Write("Invalid Ticket ID..");
+            }
+            if (cancelledTickets.Contains(ticketID) == true)
+            {
+                Console.WriteLine("This Ticket ID Is Cancelled..");
+            }
+            if (bookingRecord.ContainsKey(ticketID) == false)
+            {
+                Console.WriteLine("No Booking Found For This Ticket ID..");
+            }
+            else
+            {
+                Console.WriteLine($"Passenger Name: {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                Console.WriteLine($"Ticket ID: {ticketID}");
+                Console.WriteLine($"Flight Number & Date: {bookingRecord[ticketID]}");
+            }
+        }
+
+        public static void updatebooking()
+        {
+
+            Console.WriteLine();
+
+            Console.Write("Enter Your Ticket ID:");
+            ticketID = Console.ReadLine();
+
+            Console.WriteLine();
+
+            if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true || bookingRecord.ContainsKey(ticketID) == false)
+            {
+                Console.Write("Invalid Ticket ID..");
+            }
+            else
+            {
+                Console.WriteLine($"Flight & Date: {bookingRecord[ticketID]}");
+
+                Console.WriteLine();
+
+                updatemenu();
+            }
+        }
+
+        public static void cancelticket()
+        {
+
+        }
+
+        public static void checkin()
+        {
+
+        }
 
         static void Main(string[] args)
         {
@@ -236,31 +457,46 @@
                     case "3":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        bookflight();
                         break;
 
                     case "4":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        BookingDetails();
                         break;
 
                     case "5":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        updatebooking();
                         break;
 
                     case "6":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        cancelticket();
                         break;
 
                     case "7":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        checkin();
                         break;
 
                     case "8":
