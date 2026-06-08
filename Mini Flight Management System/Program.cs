@@ -26,7 +26,8 @@
         static string name = "";
         static int ticketcounter = 1;
         static string ticketID = "";
-        static string option = "";
+        static int flightoption = 0;
+        static int bookoption = 0;
 
 
         public static string menu()
@@ -147,16 +148,43 @@
                 Console.WriteLine();
 
                 Console.Write("Select Which Flight No You Want: ");
-                option = Console.ReadLine();
+                flightoption = int.Parse(Console.ReadLine());
 
                 Console.WriteLine();
 
-                if (int.Parse(option) <= flightNumbers.Count() && int.Parse(option) > 0)
+                if (flightoption <= flightNumbers.Count() && flightoption > 0)
                 {
                     for(int i = 0;i < availableDates.Count();i++)
                     {
-                        Console.WriteLine("");
+                        Console.WriteLine($"Date No {i+1}: {availableDates[i]}");
                     }
+
+                    Console.WriteLine();
+
+                    Console.Write("Select Which Date No You Want: ");
+                    bookoption = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine();
+
+                    if (bookoption <= availableDates.Count() && bookoption > 0)
+                    {
+
+                        bookingRecord.Add($"{ticketID}", $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}");
+
+                        
+                        
+                        Console.WriteLine("Successful Book The Flight..");
+                        Console.WriteLine($"Ticket ID       : {ticketID}");
+                        Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                        Console.WriteLine($"Flight Number   : {ticketID}");
+                        Console.WriteLine($"Flight Date     : {ticketID}");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                    }
+
                 }
                 else
                 {
@@ -164,6 +192,11 @@
                 }
             }
         }
+
+
+
+
+
         static void Main(string[] args)
         {
 
