@@ -3,8 +3,8 @@
     internal class Program
     {
         // List Variables
-        static List<string> passengerNames = ["aiham"];
-        static List<string> ticketNumbers = ["TKT-001"];
+        static List<string> passengerNames = ["aiham","ahmed","fahad", "mohammed"];
+        static List<string> ticketNumbers = ["TKT-001", "TKT-002", "TKT-003", "TKT-004",];
         static List<string> availableDates = ["12/2/2026", "20/2/2026", "12/5/2026", "12/6/2026", "12/8/2026"];
         static List<string> cancelledTickets = [];
 
@@ -29,9 +29,13 @@
         static int flightoption = 0;
         static int bookoption = 0;
         static bool updatelop = true;
+        static int counter = 0;
 
         static string oldflight = "";
         static string oldbook = "";
+
+        static Queue<string> tempcheck = new Queue<string>();
+        static Stack<string> tempstack = new Stack<string>();
 
 
         public static string menu()
@@ -410,10 +414,171 @@
 
         public static void cancelticket()
         {
+            Console.WriteLine();
 
+            Console.Write("Enter Your Ticket ID:");
+            ticketID = Console.ReadLine();
+
+            Console.WriteLine();
+
+            if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true)
+            {
+                Console.Write("Invalid Ticket ID or It is Already Cancelled..");
+            }
+            else
+            {
+                name = passengerNames[flightNumbers.IndexOf(ticketID)];
+                Console.WriteLine($"Welcome: {name.ToUpper()}");
+
+                Console.WriteLine();
+
+                if(bookingRecord.ContainsKey(ticketID) == true)
+                {
+                    Console.WriteLine("The Ticket ID " + bookingRecord.Remove(ticketID) + " Was Removed From Booking Recored..");
+                }
+
+                cancelledTickets.Add(ticketID);
+
+                if (checkedInQueue.Contains(name) == true)
+                {
+                    foreach(string item in checkedInQueue)
+                    {
+                        if(item != name)
+                        {
+                            tempcheck.Enqueue(item);
+                        }
+                    }
+
+                    foreach (string item in tempcheck)
+                    {                        
+                        checkedInQueue.Enqueue(item);                        
+                    }
+
+                    Console.WriteLine($"{name.ToUpper()} Has Been Removed From Check-In..");
+                }
+
+                Console.WriteLine();
+
+                if (boardingStack.Contains(name) == true)
+                {
+                    foreach (string item in boardingStack)
+                    {
+                        if (item != name)
+                        {
+                            tempstack.Push(item);
+                        }
+                    }
+
+                    foreach (string item in tempstack)
+                    {
+                        boardingStack.Push(item);
+                    }
+
+                    Console.WriteLine($"{name.ToUpper()} Has Been Removed From Boarding Stack..");
+                }              
+            }
         }
 
         public static void checkin()
+        {
+
+            Console.Write("Enter Your Ticket ID:");
+            ticketID = Console.ReadLine();
+            Console.WriteLine();
+
+            name = passengerNames[flightNumbers.IndexOf(ticketID)];
+
+            updatelop = true;
+
+            do
+            {
+
+                Console.WriteLine("1.   Check In a Passenger");
+                Console.WriteLine("2.   View Check-In Queue");
+                Console.WriteLine("3.   Process Next Passenger");
+                Console.WriteLine("0.   Back");
+
+                Console.WriteLine();
+
+                Console.Write("Select An Option: ");
+
+
+                switch (Console.ReadLine())
+                {
+                    case "0":
+                        updatelop = false;
+                        break;
+
+                    case "1":
+                        Console.WriteLine();                        
+
+                        if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true || bookingRecord.ContainsKey(ticketID) == false || checkedInQueue.Contains(name))
+                        {
+                            Console.Write("Invalid Ticket ID..");
+                        }
+                        
+                        if (checkedInQueue.Count < 10)
+                        {
+                            checkedInQueue.Enqueue(name);
+
+                            Console.WriteLine($"{name} Has Been Added To Check-In Queue..");
+                        }
+                        
+                        if (checkedInQueue.Count == 10)
+                        {
+                            waitlistQueue.Enqueue(name);
+
+                            Console.WriteLine($"{name} Has Been Added To Wait-List Queue..");
+                        }               
+                        
+                        break;
+
+                    case "2":
+
+                        counter = 1;
+                        foreach (string item in checkedInQueue)
+                        {
+                            Console.WriteLine($"{counter}: {item}");
+                            counter++;
+                        }
+
+                        Console.WriteLine();
+
+                        Console.WriteLine("Total in Wait-List Are: " + waitlistQueue.Count);
+
+                        break;
+
+                    case "3":
+
+                        Console.WriteLine("");
+
+                        if (checkedInQueue.Count > 0)
+                        {
+                            checkedInQueue.Dequeue();
+
+                            Console.WriteLine($"{name.ToUpper()} Has Been Processed..");
+                        }
+
+                        Console.WriteLine();
+
+                        if (waitlistQueue.Count > 0)
+                        {
+                            checkedInQueue.Enqueue(waitlistQueue.Dequeue());
+                            Console.WriteLine("Check-In Queue Has Been Updated..");
+                        }
+
+                        break;
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Any Key To Continue...");
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (updatelop == true);
+        }
+
+        public static void BoardPassengers()
         {
 
         }
@@ -502,7 +667,10 @@
                     case "8":
                         Console.WriteLine();
                         Console.ResetColor();
-                        Console.WriteLine("Under Devalopment...");
+
+                        //Console.WriteLine("Under Devalopment...");
+
+                        BoardPassengers();
                         break;
 
                     case "9":
@@ -523,6 +691,7 @@
                         break;
 
                 }
+
                 Console.WriteLine();
                 Console.WriteLine("Press Any Key To Continue...");
                 Console.ReadKey();
