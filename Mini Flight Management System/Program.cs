@@ -440,17 +440,17 @@
 
                 if (checkedInQueue.Contains(name) == true)
                 {
-                    foreach (string item in checkedInQueue)
+                    while (checkedInQueue.Count() > 0)
                     {
-                        if (item != name)
+                        if (checkedInQueue.Peek() != name)
                         {
-                            tempcheck.Enqueue(item);
+                            tempcheck.Enqueue(checkedInQueue.Dequeue());
                         }
                     }
 
-                    foreach (string item in tempcheck)
+                    while (tempcheck.Count() > 0)
                     {
-                        checkedInQueue.Enqueue(item);
+                        checkedInQueue.Enqueue(tempcheck.Dequeue());
                     }
 
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Check-In..");
@@ -460,17 +460,17 @@
 
                 if (boardingStack.Contains(name) == true)
                 {
-                    foreach (string item in boardingStack)
+                    while (boardingStack.Count() > 0)
                     {
-                        if (item != name)
+                        if (boardingStack.Peek() != name)
                         {
-                            tempstack.Push(item);
+                            tempstack.Push(boardingStack.Pop());
                         }
                     }
 
-                    foreach (string item in tempstack)
+                    while (tempstack.Count() > 0)
                     {
-                        boardingStack.Push(item);
+                        boardingStack.Push(tempstack.Pop());
                     }
 
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Boarding Stack..");
