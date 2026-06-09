@@ -438,41 +438,17 @@
 
                 cancelledTickets.Add(ticketID);
 
-                if (checkedInQueue.Contains(name) == true)
+                if (checkedInQueue.Contains(name))
                 {
-                    while (checkedInQueue.Count() > 0)
-                    {
-                        if (checkedInQueue.Peek() != name)
-                        {
-                            tempcheck.Enqueue(checkedInQueue.Dequeue());
-                        }
-                    }
-
-                    while (tempcheck.Count() > 0)
-                    {
-                        checkedInQueue.Enqueue(tempcheck.Dequeue());
-                    }
-
+                    checkedInQueue = new Queue<string>(checkedInQueue.Where(n => n != name));
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Check-In..");
                 }
 
                 Console.WriteLine($"Your Ticket ID {ticketID} Has Been Set To Cancelled..");
 
-                if (boardingStack.Contains(name) == true)
+                if (boardingStack.Contains(name))
                 {
-                    while (boardingStack.Count() > 0)
-                    {
-                        if (boardingStack.Peek() != name)
-                        {
-                            tempstack.Push(boardingStack.Pop());
-                        }
-                    }
-
-                    while (tempstack.Count() > 0)
-                    {
-                        boardingStack.Push(tempstack.Pop());
-                    }
-
+                    boardingStack = new Stack<string>(boardingStack.Where(n => n != name).Reverse());
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Boarding Stack..");
                 }
             }
