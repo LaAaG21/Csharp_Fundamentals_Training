@@ -28,11 +28,14 @@
         static string ticketID = "";
         static int flightoption = 0;
         static int bookoption = 0;
-        static bool updatelop = true;
+        static bool sub_lop = true;
         static int counter = 0;
 
         static string oldflight = "";
         static string oldbook = "";
+
+        static int row = 10;
+        static char seat = 'A';
 
         static Queue<string> tempcheck = new Queue<string>();
         static Stack<string> tempstack = new Stack<string>();
@@ -77,7 +80,7 @@
 
         public static void updatemenu()
         {
-            updatelop = true;
+            sub_lop = true;
 
             do
             {
@@ -90,7 +93,7 @@
                 switch (Console.ReadLine())
                 {
                     case "0":
-                        updatelop = false;
+                        sub_lop = false;
                         break;
 
                     case "1":
@@ -231,7 +234,7 @@
                 Console.ReadKey();
                 Console.Clear();
 
-            } while (updatelop == true);
+            } while (sub_lop == true);
         }
 
         public static void Register()
@@ -467,7 +470,7 @@
 
             name = passengerNames[ticketNumbers.IndexOf(ticketID)];
 
-            updatelop = true;
+            sub_lop = true;
 
             do
             {
@@ -485,7 +488,7 @@
                 switch (Console.ReadLine())
                 {
                     case "0":
-                        updatelop = false;
+                        sub_lop = false;
                         break;
 
                     case "1":
@@ -559,12 +562,113 @@
                 Console.ReadKey();
                 Console.Clear();
 
-            } while (updatelop == true);
+            } while (sub_lop == true);
         }
 
         public static void BoardPassengers()
         {
+            sub_lop = true;
 
+            do
+            {
+                Console.WriteLine();
+                Console.WriteLine("1.   Load Boarding Stack From Check-In Queue");
+                Console.WriteLine("2.   Board Next Passenger");
+                Console.WriteLine("3.   View Boarding Stack");
+                Console.WriteLine("4.   View Boarding Log");
+                Console.WriteLine("0.   Back");
+
+                Console.WriteLine();
+
+                Console.Write("Select An Option: ");
+                switch(Console.ReadLine())
+                {
+                    case "0":
+                        sub_lop = false;
+                        break;
+
+                    case "1":
+
+                        if(checkedInQueue.Count > 0)
+                        {
+                            while(checkedInQueue.Count > 0)
+                            {
+                                boardingStack.Push(checkedInQueue.Dequeue());
+                            }
+
+                            Console.WriteLine(boardingStack.Count() + " Has Been Loaded");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Warning: It Is Already Loaded..");
+                        }
+
+                        break;
+
+                    case "2":
+
+                        if(boardingStack.Count > 0)
+                        {
+                            while (boardingStack.Count > 0)
+                            {
+                                
+                                if(row > 40)
+                                {
+                                    Console.WriteLine("The Plane Is Full..");
+                                    return;
+                                }
+
+                                if (seat != 'G')
+                                {
+                                    Console.WriteLine(boardingStack.Peek() + "Your Seat No Is: " + row + seat);
+                                    passengerSeatMap.Add(boardingStack.Pop() , $"{row}{seat}");
+                                    seat++;
+                                }
+                                else
+                                {
+                                    seat = 'A';
+                                    row++;
+                                }                                
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("The Boarding Stack Is Empty..");
+                        }
+
+                        break;
+
+                    case "3":
+                        counter = 1;
+
+                        foreach(var board in boardingStack)
+                        {
+                            Console.WriteLine($"{counter}.  {board}");
+                        }
+
+                        break;
+
+                    case "4":
+
+                        foreach(var map in passengerSeatMap)
+                        {
+                            Console.WriteLine($"Passenger Name: {map.Key}   |   {map.Value}");
+                        }
+                        
+
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Option.. Please Select Valid Option.");
+                        break;
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press Any Key To Continue...");
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (sub_lop);
         }
 
         static void Main(string[] args)
