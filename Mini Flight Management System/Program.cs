@@ -2,14 +2,29 @@
 {
     internal class Program
     {
+        // Files Path
+        static string passengerNamesFile = @"..\..\..\\passengerNames.txt";
+        static string availableDatesFile = @"..\..\..\\availableDates.txt";
+        static string cancelledTicketsFile = @"..\..\..\\cancelledTickets.txt";
+        static string ticketNumbersFile = @"..\..\..\\ticketNumbers.txt";
+
+        static string flightNumbersFile = @"..\..\..\\flightNumbers.txt";
+
+        static string checkedInQueueFile = @"..\..\..\\checkedInQueue.txt";
+        static string waitlistQueueFile = @"..\..\..\\waitlistQueue.txt";
+        static string boardingStackFile = @"..\..\..\\boardingStack.txt";
+
+        static string bookingRecordFile = @"..\..\..\\bookingRecord.txt";
+        static string passengerSeatMapFile = @"..\..\..\\passengerSeatMap.txt";
+
         // List Variables
-        static List<string> passengerNames = ["aiham","ahmed","fahad", "mohammed"];
-        static List<string> ticketNumbers = ["TKT-001", "TKT-002", "TKT-003", "TKT-004",];
-        static List<string> availableDates = ["12/2/2026", "20/2/2026", "12/5/2026", "12/6/2026", "12/8/2026"];
+        static List<string> passengerNames = [];
+        static List<string> ticketNumbers = [];
+        static List<string> availableDates = [];
         static List<string> cancelledTickets = [];
 
         // Array Variables
-        static string[] flightNumbers = { "OA101", "OA102", "OA103", "OA104", "OA105", "OA106" };
+        static string[] flightNumbers = {};
         
         // Queue Variables
         static Queue<string> checkedInQueue = new Queue<string>();
@@ -24,7 +39,7 @@
 
         // Temp Variables
         static string name = "";
-        static int ticketcounter = 5;
+        static int ticketcounter = 0;
         static string ticketID = "";
         static int flightoption = 0;
         static int bookoption = 0;
@@ -37,9 +52,288 @@
         static int row = 10;
         static char seat = 'A';
 
-        static Queue<string> tempcheck = new Queue<string>();
-        static Stack<string> tempstack = new Stack<string>();
+        static int er = 0;
 
+        
+        public static void filehandler()
+        {
+            // passengerNamesFile
+
+            if (File.Exists(passengerNamesFile))
+            {
+                using (StreamReader reader = new StreamReader(passengerNamesFile))
+                {
+                    passengerNames = File.ReadAllLines(passengerNamesFile).ToList();
+                }
+            }
+            else
+            {
+                Console.WriteLine("passengerNames File not found.");
+                er++;
+            }
+
+
+            // availableDatesFile
+
+            if (File.Exists(availableDatesFile))
+            {
+                using (StreamReader reader = new StreamReader(availableDatesFile))
+                {
+                    availableDates = File.ReadAllLines(availableDatesFile).ToList();
+                }
+            }
+            else
+            {
+                Console.WriteLine("availableDates File not found.");
+                er++;
+            }
+
+
+            // cancelledTicketsFile
+
+            if (File.Exists(cancelledTicketsFile))
+            {
+                using (StreamReader reader = new StreamReader(cancelledTicketsFile))
+                {
+                    cancelledTickets = File.ReadAllLines(cancelledTicketsFile).ToList();
+                }
+            }
+            else
+            {
+                Console.WriteLine("cancelledTickets File not found.");
+                er++;
+            }
+
+
+            // flightNumbersFile
+
+            if (File.Exists(flightNumbersFile))
+            {
+                using (StreamReader reader = new StreamReader(flightNumbersFile))
+                {
+                    flightNumbers = File.ReadAllLines(flightNumbersFile).ToArray();
+                }
+            }
+            else
+            {
+                Console.WriteLine("flightNumbers File not found.");
+                er++;
+            }
+
+
+            // ticketNumbersFile
+
+            if (File.Exists(ticketNumbersFile))
+            {
+                using (StreamReader reader = new StreamReader(ticketNumbersFile))
+                {
+                    ticketNumbers = File.ReadAllLines(ticketNumbersFile).ToList();
+                    ticketcounter = ticketNumbers.Count();
+                }
+            }
+            else
+            {
+                Console.WriteLine("ticketNumbers File not found.");
+                er++;
+            }
+
+
+            // checkedInQueueFile
+
+            if (File.Exists(checkedInQueueFile))
+            {
+                checkedInQueue = new Queue<string>(File.ReadAllLines(checkedInQueueFile));
+            }
+            else
+            {
+                Console.WriteLine("checkedInQueueFile File not found.");
+                er++;
+            }
+
+
+            // waitlistQueueFile
+
+            if (File.Exists(waitlistQueueFile))
+            {
+                waitlistQueue = new Queue<string>(File.ReadAllLines(waitlistQueueFile));
+            }
+            else
+            {
+                Console.WriteLine("waitlistQueueFile File not found.");
+                er++;
+            }
+
+
+            // boardingStackFile
+
+            if (File.Exists(boardingStackFile))
+            {
+                boardingStack = new Stack<string>(File.ReadAllLines(boardingStackFile));
+            }
+            else
+            {
+                Console.WriteLine("boardingStackFile File not found.");
+                er++;
+            }
+
+
+            // bookingRecordFile
+
+            if (File.Exists(bookingRecordFile))
+            {
+                foreach (string line in File.ReadAllLines(bookingRecordFile))
+                {
+                    string[] parts = line.Split(',');
+                    bookingRecord.Add(parts[0], parts[1]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("bookingRecordFile File not found.");
+                er++;
+            }
+
+
+            // bookingRecordFile
+
+            if (File.Exists(passengerSeatMapFile))
+            {
+                foreach (string line in File.ReadAllLines(passengerSeatMapFile))
+                {
+                    string[] parts = line.Split(',');
+                    passengerSeatMap.Add(parts[0], parts[1]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("passengerSeatMapFile File not found.");
+                er++;
+            }
+
+
+            if (er == 0)
+            {
+                Console.WriteLine("All Files Loaded Succefully..");
+
+                Console.WriteLine();
+                Console.WriteLine("Press Any Key To Continue...");
+                Console.ReadKey();
+                Console.Clear();
+
+            }
+        }
+
+        public static void writtingfile()
+        {
+            // passengerNamesFile
+
+            using (StreamWriter writer = new StreamWriter(passengerNamesFile))
+            {
+                foreach (string name in passengerNames)
+                {
+                    writer.WriteLine(name);
+                }
+            }
+
+
+            // availableDatesFile
+
+            using (StreamWriter writer = new StreamWriter(availableDatesFile))
+            {
+                foreach (string date in availableDates)
+                {
+                    writer.WriteLine(date);
+                }
+            }
+
+
+            // cancelledTicketsFile
+
+            using (StreamWriter writer = new StreamWriter(cancelledTicketsFile))
+            {
+                foreach (string cancel in cancelledTickets)
+                {
+                    writer.WriteLine(cancel);
+                }
+            }
+
+
+            // flightNumbersFile
+
+            using (StreamWriter writer = new StreamWriter(flightNumbersFile))
+            {
+                foreach (string flight in flightNumbers)
+                {
+                    writer.WriteLine(flight);
+                }
+            }
+
+
+            // ticketNumbersFile
+
+            using (StreamWriter writer = new StreamWriter(ticketNumbersFile))
+            {
+                foreach (string ticket in ticketNumbers)
+                {
+                    writer.WriteLine(ticket);
+                }
+            }
+
+
+            // checkedInQueueFile
+
+            using (StreamWriter writer = new StreamWriter(checkedInQueueFile))
+            {
+                foreach (string check in checkedInQueue)
+                {
+                    writer.WriteLine(check);
+                }
+            }
+
+
+            // waitlistQueueFile
+
+            using (StreamWriter writer = new StreamWriter(waitlistQueueFile))
+            {
+                foreach (string wait in waitlistQueue)
+                {
+                    writer.WriteLine(wait);
+                }
+            }
+
+
+            // boardingStackFile
+
+            using (StreamWriter writer = new StreamWriter(boardingStackFile))
+            {
+                foreach (string board in boardingStack)
+                {
+                    writer.WriteLine(board);
+                }
+            }
+
+
+            // bookingRecordFile
+
+            using (StreamWriter writer = new StreamWriter(bookingRecordFile))
+            {
+                foreach (var booking in bookingRecord)
+                {
+                    writer.WriteLine($"{booking.Key},{booking.Value}");
+                }
+            }
+
+
+            // passengerSeatMapFile
+
+            using (StreamWriter writer = new StreamWriter(passengerSeatMapFile))
+            {
+                foreach (var seatmap in passengerSeatMap)
+                {
+                    writer.WriteLine($"{seatmap.Key},{seatmap.Value}");
+                }
+            }
+        }
 
         public static string menu()
         {
@@ -78,165 +372,6 @@
             return Console.ReadLine();
         }
 
-        public static void updatemenu()
-        {
-            sub_lop = true;
-
-            do
-            {
-
-                Console.WriteLine("1.   Change Flight Only");
-                Console.WriteLine("2.   Change Date Only");
-                Console.WriteLine("3.   Change Both");
-                Console.WriteLine("0.   Cancel Update");
-
-                switch (Console.ReadLine())
-                {
-                    case "0":
-                        sub_lop = false;
-                        break;
-
-                    case "1":
-
-                        for (int i = 0; i < flightNumbers.Count(); i++)
-                        {
-                            Console.WriteLine($"Flight No {i + 1}: {flightNumbers[i]}");
-                        }
-
-                        Console.WriteLine();
-
-                        Console.Write("Select Which Flight No You Want: ");
-                        oldflight = flightNumbers[flightoption - 1];
-                        flightoption = int.Parse(Console.ReadLine());
-
-                        Console.WriteLine();
-
-                        if (flightoption <= flightNumbers.Count() && flightoption > 0)
-                        {
-                            bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]}   |   {availableDates[bookoption - 1]}";
-
-                            Console.WriteLine("Successful Book The Flight..");
-                            Console.WriteLine();
-                            Console.WriteLine($"Ticket ID       : {ticketID}");
-                            Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
-                            Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
-                            Console.WriteLine($"Flight Date     : {availableDates[bookoption - 1]}");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid Option..Please Select avalible Flight.");
-                        }
-
-                        break;
-
-                    case "2":
-
-                        for (int i = 0; i < availableDates.Count(); i++)
-                        {
-                            Console.WriteLine($"Date No {i + 1}: {availableDates[i]}");
-                        }
-
-                        Console.WriteLine();
-
-                        Console.Write("Select Which Date No You Want: ");
-                        oldbook = availableDates[bookoption - 1];
-                        bookoption = int.Parse(Console.ReadLine());
-
-                        Console.WriteLine();
-
-                        if (bookoption <= availableDates.Count() && bookoption > 0)
-                        {
-
-                            bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}";
-
-
-
-                            Console.WriteLine("Successful Book The Flight..");
-                            Console.WriteLine();
-                            Console.WriteLine($"Ticket ID       : {ticketID}");
-                            Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
-                            Console.WriteLine($"Flight Number   : {flightNumbers[flightoption - 1]}");
-                            Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid Option.. Please Select avalible Date.");
-                        }
-
-                        break;
-
-                    case "3":
-
-                        for (int i = 0; i < flightNumbers.Count(); i++)
-                        {
-                            Console.WriteLine($"Flight No {i + 1}: {flightNumbers[i]}");
-                        }
-
-                        Console.WriteLine();
-
-                        Console.Write("Select Which Flight No You Want: ");
-                        oldflight = flightNumbers[flightoption - 1];
-                        flightoption = int.Parse(Console.ReadLine());
-
-                        Console.WriteLine();
-
-                        if (flightoption <= flightNumbers.Count() && flightoption > 0)
-                        {
-                            for (int i = 0; i < availableDates.Count(); i++)
-                            {
-                                Console.WriteLine($"Date No {i + 1}: {availableDates[i]}");
-                            }
-
-                            Console.WriteLine();
-
-                            Console.Write("Select Which Date No You Want: ");
-                            oldbook = availableDates[bookoption - 1];
-                            bookoption = int.Parse(Console.ReadLine());
-
-                            Console.WriteLine();
-
-                            if (bookoption <= availableDates.Count() && bookoption > 0)
-                            {
-
-                                bookingRecord.Add($"{ticketID}", $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}");
-
-
-
-                                Console.WriteLine("Successful Book The Flight..");
-                                Console.WriteLine();
-                                Console.WriteLine($"Ticket ID       : {ticketID}");
-                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
-                                Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
-                                Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
-
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid Option.. Please Select avalible Date.");
-                            }
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
-                        }
-
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid Option..");
-                        break;
-                }
-
-                Console.WriteLine();
-                Console.WriteLine("Press Any Key To Continue...");
-                Console.ReadKey();
-                Console.Clear();
-
-            } while (sub_lop == true);
-        }
-
         public static void Register()
         {
             Console.WriteLine();
@@ -251,8 +386,8 @@
             {
                 passengerNames.Add(name);
 
-                ticketID = "TKT-" + ticketcounter.ToString("D3");
                 ticketcounter++;
+                ticketID = "TKT-" + ticketcounter.ToString("D3");                
                 ticketNumbers.Add(ticketID);
 
                 Console.WriteLine("The name Was Added Successfully");
@@ -300,7 +435,7 @@
 
             if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true)
             {
-                Console.Write("Invalid Ticket ID..");
+                Console.Write("Invalid Ticket ID Or It Cancelled..");
             }
 
             else if(bookingRecord.ContainsKey(ticketID) == true)
@@ -413,7 +548,161 @@
 
                 Console.WriteLine();
 
-                updatemenu();
+                sub_lop = true;
+
+                do
+                {
+
+                    Console.WriteLine("1.   Change Flight Only");
+                    Console.WriteLine("2.   Change Date Only");
+                    Console.WriteLine("3.   Change Both");
+                    Console.WriteLine("0.   Cancel Update");
+
+                    switch (Console.ReadLine())
+                    {
+                        case "0":
+                            sub_lop = false;
+                            break;
+
+                        case "1":
+
+                            for (int i = 0; i < flightNumbers.Count(); i++)
+                            {
+                                Console.WriteLine($"Flight No {i + 1}: {flightNumbers[i]}");
+                            }
+
+                            Console.WriteLine();
+
+                            Console.Write("Select Which Flight No You Want: ");
+                            oldflight = flightNumbers[flightoption - 1];
+                            flightoption = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine();
+
+                            if (flightoption <= flightNumbers.Count() && flightoption > 0)
+                            {
+                                bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]}   |   {availableDates[bookoption - 1]}";
+
+                                Console.WriteLine("Successful Book The Flight..");
+                                Console.WriteLine();
+                                Console.WriteLine($"Ticket ID       : {ticketID}");
+                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
+                                Console.WriteLine($"Flight Date     : {availableDates[bookoption - 1]}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid Option..Please Select avalible Flight.");
+                            }
+
+                            break;
+
+                        case "2":
+
+                            for (int i = 0; i < availableDates.Count(); i++)
+                            {
+                                Console.WriteLine($"Date No {i + 1}: {availableDates[i]}");
+                            }
+
+                            Console.WriteLine();
+
+                            Console.Write("Select Which Date No You Want: ");
+                            oldbook = availableDates[bookoption - 1];
+                            bookoption = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine();
+
+                            if (bookoption <= availableDates.Count() && bookoption > 0)
+                            {
+
+                                bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}";
+
+
+
+                                Console.WriteLine("Successful Book The Flight..");
+                                Console.WriteLine();
+                                Console.WriteLine($"Ticket ID       : {ticketID}");
+                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                Console.WriteLine($"Flight Number   : {flightNumbers[flightoption - 1]}");
+                                Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                            }
+
+                            break;
+
+                        case "3":
+
+                            for (int i = 0; i < flightNumbers.Count(); i++)
+                            {
+                                Console.WriteLine($"Flight No {i + 1}: {flightNumbers[i]}");
+                            }
+
+                            Console.WriteLine();
+
+                            Console.Write("Select Which Flight No You Want: ");
+                            oldflight = flightNumbers[flightoption - 1];
+                            flightoption = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine();
+
+                            if (flightoption <= flightNumbers.Count() && flightoption > 0)
+                            {
+                                for (int i = 0; i < availableDates.Count(); i++)
+                                {
+                                    Console.WriteLine($"Date No {i + 1}: {availableDates[i]}");
+                                }
+
+                                Console.WriteLine();
+
+                                Console.Write("Select Which Date No You Want: ");
+                                oldbook = availableDates[bookoption - 1];
+                                bookoption = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine();
+
+                                if (bookoption <= availableDates.Count() && bookoption > 0)
+                                {
+
+                                    bookingRecord.Add($"{ticketID}", $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}");
+
+
+
+                                    Console.WriteLine("Successful Book The Flight..");
+                                    Console.WriteLine();
+                                    Console.WriteLine($"Ticket ID       : {ticketID}");
+                                    Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                    Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
+                                    Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                                }
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                            }
+
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid Option..");
+                            break;
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine("Press Any Key To Continue...");
+                    Console.ReadKey();
+                    Console.Clear();
+
+                } while (sub_lop == true);
             }
         }
 
@@ -434,7 +723,7 @@
 
                 Console.WriteLine();
 
-                if (bookingRecord.ContainsKey(ticketID) == true)
+                if (bookingRecord.ContainsKey(ticketID))
                 {
                     Console.WriteLine("The Ticket ID " + bookingRecord.Remove(ticketID) + " Was Removed From Booking Recored..");
                 }
@@ -494,19 +783,25 @@
                     case "1":
                         Console.WriteLine();                        
 
-                        if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true || bookingRecord.ContainsKey(ticketID) == false || checkedInQueue.Contains(name))
+                        if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true || checkedInQueue.Contains(name))
                         {
-                            Console.Write("Invalid Ticket ID..");
+                            Console.Write("Invalid Ticket ID Or Has Been Cancelled Or It Is Already In Check-In..");
+                            return;
                         }
-                        
+                        if(bookingRecord.ContainsKey(ticketID))
+                        {
+                            Console.Write("You Didn't Book A Flight..");
+                            return;
+                        }
                         if (checkedInQueue.Count < 10)
                         {
                             checkedInQueue.Enqueue(name);
 
                             Console.WriteLine($"{name} Has Been Added To Check-In Queue..");
+
                         }
-                        
-                        if (checkedInQueue.Count == 10)
+
+                        else
                         {
                             waitlistQueue.Enqueue(name);
 
@@ -526,7 +821,7 @@
 
                         Console.WriteLine();
 
-                        Console.WriteLine("Total in Wait-List Are: " + waitlistQueue.Count);
+                        Console.WriteLine("Total in Wait-List Are: " + checkedInQueue.Count);
 
                         break;
 
@@ -674,6 +969,8 @@
         static void Main(string[] args)
         {
 
+            filehandler();
+
             bool lop = true;
 
             do
@@ -684,6 +981,9 @@
 
                     case "0":
                         Console.ResetColor();
+
+                        writtingfile();
+
                         Console.WriteLine();
                         Console.WriteLine("GoodBey..");
                         lop = false;
@@ -756,9 +1056,9 @@
                         Console.WriteLine();
                         Console.ResetColor();
 
-                        Console.WriteLine("Under Devalopment...");
+                        //Console.WriteLine("Under Devalopment...");
 
-                        //BoardPassengers();
+                        BoardPassengers();
                         break;
 
                     case "9":
