@@ -39,6 +39,7 @@
 
         // Temp Variables
         static string name = "";
+        static string date = "";
         static int ticketcounter = 0;
         static string ticketID = "";
         static int flightoption = 0;
@@ -52,9 +53,15 @@
         static int row = 10;
         static char seat = 'A';
 
+        static string[] temp = { };
+
         static int er = 0;
 
-        
+        static List<string> tempflight = [];
+        static List<string> tempdate = [];
+
+        static List<string> templist = [];
+
         public static void filehandler()
         {
             // passengerNamesFile
@@ -964,6 +971,51 @@
                 Console.Clear();
 
             } while (sub_lop);
+        }
+
+        public static void FlightManifest()
+        {
+            Console.WriteLine();
+            Console.Write("Enter The Flight Number: ");
+            oldflight = Console.ReadLine();
+
+            if(!flightNumbers.Contains(oldflight))
+            {
+                Console.WriteLine("Invalid Flight Number..");
+            }
+            else
+            {
+                foreach(var book in bookingRecord)
+                {
+
+                    temp = book.Value.Split("|");
+
+                    if(oldflight == temp[0].Trim())
+                    {
+                        templist.Add(book.Key);
+                        tempflight.Append(temp[0].Trim());
+                        tempdate.Append(temp[1].Trim());
+                    }
+                }
+
+                foreach(var id in templist)
+                {
+                    name = passengerNames[ticketNumbers.IndexOf(id)];
+                    Console.WriteLine();
+
+                    if (cancelledTickets.Contains(id))
+                    {
+                        
+                        Console.WriteLine($"{name.ToUpper()} Your Ticket ID {id} Is Cancelled..");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Passenger Name: {name}  |   Ticket ID: {id} |   Date: {tempdate[templist.IndexOf(id)]}");
+                    }
+                }
+
+
+            }
         }
 
         static void Main(string[] args)
