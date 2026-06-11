@@ -64,6 +64,7 @@
 
         public static void filehandler()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             // passengerNamesFile
 
             if (File.Exists(passengerNamesFile))
@@ -74,7 +75,7 @@
                 }
             }
             else
-            {
+            {                
                 Console.WriteLine("passengerNames File not found.");
                 er++;
             }
@@ -217,10 +218,13 @@
                 er++;
             }
 
+            Console.ResetColor();
 
             if (er == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("All Files Loaded Succefully..");
+                Console.ResetColor();
 
                 Console.WriteLine();
                 Console.WriteLine("Press Any Key To Continue...");
@@ -387,7 +391,9 @@
 
             if (name.IsWhiteSpace() == true || passengerNames.Contains(name) == true)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid Name Format..");
+                Console.ResetColor();
             }
             else
             {
@@ -397,11 +403,13 @@
                 ticketID = "TKT-" + ticketcounter.ToString("D3");                
                 ticketNumbers.Add(ticketID);
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("The name Was Added Successfully");
+                Console.ResetColor();
 
                 Console.WriteLine();
 
-                Console.WriteLine("Passenger Name:  " + name);
+                Console.WriteLine("Passenger Name:  " + name.ToUpper());
                 Console.WriteLine("Ticket ID     :  " + ticketID);
             }
         }
@@ -410,7 +418,9 @@
         {
             if(passengerNames.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No Passengers Registered Yet..");
+                Console.ResetColor();
             }
             else
             {
@@ -420,11 +430,11 @@
                 {
                     if (cancelledTickets.Contains(ticketNumbers[i]) == true)
                     {
-                        Console.WriteLine($"{i + 1}       |   {passengerNames[i]}            |   {ticketNumbers[i]}    |   CANCELLED  |");
+                        Console.WriteLine($"{i + 1}       |   {passengerNames[i].ToUpper()}            |   {ticketNumbers[i]}    |   CANCELLED  |");
                     }
                     else
                     {
-                        Console.WriteLine($"{i + 1}     |   {passengerNames[i]}            |   {ticketNumbers[i]}    |   ACTIVE  |");
+                        Console.WriteLine($"{i + 1}     |   {passengerNames[i].ToUpper()}            |   {ticketNumbers[i]}    |   ACTIVE  |");
                     }                
                 }
 
@@ -442,12 +452,16 @@
 
             if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Invalid Ticket ID Or It Cancelled..");
+                Console.ResetColor();
             }
 
             else if(bookingRecord.ContainsKey(ticketID) == true)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("The Ticket ID Is Already Has a Booking..");
+                Console.ResetColor();
             }
 
             else
@@ -483,9 +497,11 @@
 
                         bookingRecord.Add($"{ticketID}", $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}");
 
-                        
-                        
+
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Successful Book The Flight..");
+                        Console.ResetColor();
+
                         Console.WriteLine();
                         Console.WriteLine($"Ticket ID       : {ticketID}");
                         Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
@@ -495,13 +511,17 @@
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                        Console.ResetColor();
                     }
 
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                    Console.ResetColor();
                 }
             }
         }
@@ -517,19 +537,27 @@
 
             if (ticketNumbers.Contains(ticketID) == false)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Invalid Ticket ID..");
+                Console.ResetColor();
+                return;
             }
             if (cancelledTickets.Contains(ticketID) == true)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("This Ticket ID Is Cancelled..");
+                Console.ResetColor();
+                return;
             }
             if (bookingRecord.ContainsKey(ticketID) == false)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("No Booking Found For This Ticket ID..");
+                Console.ResetColor();
             }
             else
             {
-                Console.WriteLine($"Passenger Name: {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                Console.WriteLine($"Passenger Name: {passengerNames[ticketNumbers.IndexOf(ticketID)].ToUpper()}");
                 Console.WriteLine($"Ticket ID: {ticketID}");
                 Console.WriteLine($"Flight Number & Date: {bookingRecord[ticketID]}");
             }
@@ -547,7 +575,9 @@
 
             if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true || bookingRecord.ContainsKey(ticketID) == false)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Invalid Ticket ID..");
+                Console.ResetColor();
             }
             else
             {
@@ -590,16 +620,21 @@
                             {
                                 bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]}   |   {availableDates[bookoption - 1]}";
 
+                                Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Successful Book The Flight..");
+                                Console.ResetColor();
+
                                 Console.WriteLine();
                                 Console.WriteLine($"Ticket ID       : {ticketID}");
-                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)].ToUpper()}");
                                 Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
                                 Console.WriteLine($"Flight Date     : {availableDates[bookoption - 1]}");
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Invalid Option..Please Select avalible Flight.");
+                                Console.ResetColor();
                             }
 
                             break;
@@ -625,18 +660,22 @@
                                 bookingRecord[ticketID] = $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}";
 
 
-
+                                Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Successful Book The Flight..");
+                                Console.ResetColor();
+
                                 Console.WriteLine();
                                 Console.WriteLine($"Ticket ID       : {ticketID}");
-                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)].ToUpper()}");
                                 Console.WriteLine($"Flight Number   : {flightNumbers[flightoption - 1]}");
                                 Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
 
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                                Console.ResetColor();
                             }
 
                             break;
@@ -677,30 +716,38 @@
                                     bookingRecord.Add($"{ticketID}", $"{flightNumbers[flightoption - 1]} | {availableDates[bookoption - 1]}");
 
 
-
+                                    Console.ForegroundColor = ConsoleColor.Green;
                                     Console.WriteLine("Successful Book The Flight..");
+                                    Console.ResetColor();
+
                                     Console.WriteLine();
                                     Console.WriteLine($"Ticket ID       : {ticketID}");
-                                    Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)]}");
+                                    Console.WriteLine($"Paasenger Name  : {passengerNames[ticketNumbers.IndexOf(ticketID)].ToUpper()}");
                                     Console.WriteLine($"Flight Number   : {oldflight} ===> {flightNumbers[flightoption - 1]}");
                                     Console.WriteLine($"Flight Date     : {oldbook} ===> {availableDates[bookoption - 1]}");
 
                                 }
                                 else
                                 {
+                                    Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("Invalid Option.. Please Select avalible Date.");
+                                    Console.ResetColor();
                                 }
 
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Invalid Option.. Please Select avalible Flight.");
+                                Console.ResetColor();
                             }
 
                             break;
 
                         default:
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Invalid Option..");
+                            Console.ResetColor();
                             break;
                     }
 
@@ -726,13 +773,15 @@
             {             
 
                 name = passengerNames[ticketNumbers.IndexOf(ticketID)];
-                Console.WriteLine($"Welcome: {name.ToUpper()}");
+                Console.WriteLine($"Welcome {name.ToUpper()}");
 
                 Console.WriteLine();
 
                 if (bookingRecord.ContainsKey(ticketID))
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("The Ticket ID " + bookingRecord.Remove(ticketID) + " Was Removed From Booking Recored..");
+                    Console.ResetColor();
                 }
 
                 cancelledTickets.Add(ticketID);
@@ -740,20 +789,28 @@
                 if (checkedInQueue.Contains(name))
                 {
                     checkedInQueue = new Queue<string>(checkedInQueue.Where(n => n != name));
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Check-In..");
+                    Console.ResetColor();
                 }
 
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Your Ticket ID {ticketID} Has Been Set To Cancelled..");
+                Console.ResetColor();
 
                 if (boardingStack.Contains(name))
                 {
                     boardingStack = new Stack<string>(boardingStack.Where(n => n != name).Reverse());
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"{name.ToUpper()} Has Been Removed From Boarding Stack..");
+                    Console.ResetColor();
                 }
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Invalid Ticket ID or It is Already Cancelled..");
+                Console.ResetColor();
             }
         }
 
@@ -792,27 +849,34 @@
 
                         if (ticketNumbers.Contains(ticketID) == false || cancelledTickets.Contains(ticketID) == true || checkedInQueue.Contains(name))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("Invalid Ticket ID Or Has Been Cancelled Or It Is Already In Check-In..");
+                            Console.ResetColor();
                             return;
                         }
                         if(bookingRecord.ContainsKey(ticketID))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("You Didn't Book A Flight..");
+                            Console.ResetColor();
                             return;
                         }
                         if (checkedInQueue.Count < 10)
                         {
                             checkedInQueue.Enqueue(name);
 
-                            Console.WriteLine($"{name} Has Been Added To Check-In Queue..");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"{name.ToUpper()} Has Been Added To Check-In Queue..");
+                            Console.ResetColor();
 
                         }
 
                         else
                         {
                             waitlistQueue.Enqueue(name);
-
-                            Console.WriteLine($"{name} Has Been Added To Wait-List Queue..");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine($"{name.ToUpper()} Has Been Added To Wait-List Queue..");
+                            Console.ResetColor();
                         }               
                         
                         break;
@@ -840,7 +904,9 @@
                         {
                             checkedInQueue.Dequeue();
 
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine($"{name.ToUpper()} Has Been Processed..");
+                            Console.ResetColor();
                         }
 
                         Console.WriteLine();
@@ -848,14 +914,17 @@
                         if (waitlistQueue.Count > 0)
                         {
                             checkedInQueue.Enqueue(waitlistQueue.Dequeue());
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Check-In Queue Has Been Updated..");
+                            Console.ResetColor();
                         }
 
                         break;
 
                     default:
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Option.. Please Select From 0 to 10");
+                        Console.ResetColor();
                         break;
                 }
 
@@ -898,11 +967,15 @@
                                 boardingStack.Push(checkedInQueue.Dequeue());
                             }
 
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine(boardingStack.Count() + " Has Been Loaded");
+                            Console.ResetColor();
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                             Console.WriteLine("Warning: It Is Already Loaded..");
+                            Console.ResetColor();
                         }
 
                         break;
@@ -916,13 +989,17 @@
                                 
                                 if(row > 40)
                                 {
+                                    Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("The Plane Is Full..");
+                                    Console.ResetColor();
                                     return;
                                 }
 
                                 if (seat != 'G')
                                 {
-                                    Console.WriteLine(boardingStack.Peek() + "Your Seat No Is: " + row + seat);
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine(boardingStack.Peek().ToUpper() + " Your Seat No Is: " + row + seat);
+                                    Console.ResetColor();
                                     passengerSeatMap.Add(boardingStack.Pop() , $"{row}{seat}");
                                     seat++;
                                 }
@@ -935,7 +1012,9 @@
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("The Boarding Stack Is Empty..");
+                            Console.ResetColor();
                         }
 
                         break;
@@ -954,14 +1033,16 @@
 
                         foreach(var map in passengerSeatMap)
                         {
-                            Console.WriteLine($"Passenger Name: {map.Key}   |   {map.Value}");
+                            Console.WriteLine($"Passenger Name: {map.Key.ToUpper()}   |   {map.Value}");
                         }
                         
 
                         break;
 
                     default:
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Option.. Please Select Valid Option.");
+                        Console.ResetColor();
                         break;
                 }
 
@@ -1126,8 +1207,9 @@
                         break;
 
                     default:
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Invalid Option.. Please Select From 0 to 10");
+                        Console.ResetColor();
                         break;
 
                 }
